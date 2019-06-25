@@ -9,7 +9,7 @@ Data factory parser for make a complex rpg game with pixijs.
 
 # EXAMPLE
 
-```
+```js
 Factory.circulars = Factory.CIRCULARS.ALL;
 Factory.flatters = Factory.FLATTERS.ALL;
 Factory.mappers = Factory.MAPPERS.Points;
