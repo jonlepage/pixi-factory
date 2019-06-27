@@ -13,25 +13,17 @@ class FactoryPoint {
         };
     };
     
-    to(point){
-        Object.keys(this).forEach(key=>{ point[key] = this[key] });
-        if(point.cb){
-            point.cb.call(point.scope);
+    /**Asign factory value to a target and call cb scope if need */
+    to(target){
+        Object.keys(this).forEach(key=>{ target[key] = this[key] });
+        if(target.cb){
+            target.cb.call(target.scope);
         };
     };
 };
 
 /**@class Factory data manager for objets */
 class Factory {
-    /** Know proprety with circular reference or proprety to remove in FactoryPoint */
-    static FromJson = {
-        Projection:['euler','proj','legacy','local'],
-        Observable:['cb','scope','world',"position","pivot","scale","skew"],
-        get ALL() {
-            return [].concat(...Object.keys(this).slice(0,length-1).map(k=>this[k]));
-        }
-    };
-    
     /** Know proprety with circular reference or proprety to remove in FactoryPoint preset */
     static CIRCULARS = {
         Projection:['euler','proj','legacy','local'],
@@ -100,13 +92,13 @@ class Factory {
         }
     };
 
-    /** past factory data to a obj */
-    to(obj){
+    /** asign factory value to a Object */
+    to(target){
         Object.keys(this).forEach(key=>{
             if(this[key] instanceof FactoryPoint){
-                this[key].to(obj[key]);
+                this[key].to(target[key]);
             }else{
-                obj[key] = this[key];
+                target[key] = this[key];
             };
         })
     };
